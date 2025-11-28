@@ -19,37 +19,3 @@ Station callsign: **YD9CVS**
 Platform: **Raspberry Pi 4B**  
 TNC: **Direwolf** (software TNC)  
 Network: **IPFS Kubo**
-
----
-
-## 1. High-Level Architecture
-
-```text
-[Weather Sensors / APRS WX] 
-          │
-          │ RF (144.390 / local APRS freq)
-          ▼
-    [Radio + Audio Interface]
-          │
-          │ analog audio
-          ▼
-       [Direwolf]
-   (APRS decoder on Pi)
-          │
-          │ decoded WX data (APRS frames, TCP/UDP, files)
-          ▼
-        [WeeWX]
- (Python weather engine)
-          │
-          │ HTML, graphs, JSON
-          ▼
-    [Static Web Output]
-      /var/www/weewx
-          │
-          │ ipfs add -r
-          ▼
-     [IPFS Node on Pi]
- (Kubo daemon + pinning)
-          │
-          ├── Local gateway: http://raspi:8080/ipfs/<CID>/
-          └── Public gateway: https://ipfs.io/ipfs/<CID>/
